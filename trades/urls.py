@@ -4,9 +4,7 @@ from .views import TradeViewSet
 
 # Create a router and register our viewsets with it.
 router = DefaultRouter()
-router.register(r'trades', TradeViewSet, basename='trade')
+router.register(r'trades', TradeViewSet)
 
 # The API URLs are now determined automatically by the router.
-urlpatterns = [
-    path('', include(router.urls)),
-]
+urlpatterns = router.urls 

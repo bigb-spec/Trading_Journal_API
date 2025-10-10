@@ -4,10 +4,10 @@ services:
     container_name: tradingjournal
     restart: always
     environment:
-      MYSQL_DATABASE: trading_journal
-      MYSQL_USER: journal_user
-      MYSQL_PASSWORD: journal_pass
-      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: {MYSQL_DATABASE }
+      MYSQL_USER: {MYSQL_USER }
+      MYSQL_PASSWORD: {MYSQL_PASSWORD }
+      MYSQL_ROOT_PASSWORD: {MYSQL_ROOT_PASSWORD }
     ports:
       - "3307:3306"
     volumes:

@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'trading_journal',
+    'accounts',
+    'trades',
+    'analytics',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -88,7 +91,7 @@ DATABASES = {
         'NAME': os.environ.get('MYSQL_DATABASE'),
         'USER': os.environ.get('MYSQL_USER'),
         'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
-        'HOST': 'mysql',  # same as service name
+        'HOST': 'trading_mysql',  # Use the service name defined in docker-compose.yml
         'PORT': '3306',
     }
 }

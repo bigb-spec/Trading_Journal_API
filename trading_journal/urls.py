@@ -21,5 +21,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('trades.urls')), # Include the trades app URLs 
+    path('api/trades/', include('trades.urls')), # Include the trades app URLs
+    path('api/analytics/', include('analytics.urls')), # Include the analytics app URLs
+    path('api/accounts/', include('accounts.urls')), # Include the accounts app URLs
 ]

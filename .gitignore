@@ -1,0 +1,83 @@
+# -----------------------------
+# 🐍 PYTHON / DJANGO
+# -----------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.sqlite3
+*.log
+
+# Local environment settings
+.env
+.env.*
+
+# Django specific
+*.mo
+*.pot
+db.sqlite3
+media/
+staticfiles/
+static/
+
+# VS Code workspace files
+.vscode/
+*.code-workspace
+
+# -----------------------------
+# 🧰 VIRTUAL ENVIRONMENTS
+# -----------------------------
+venv/
+env/
+.venv/
+ENV/
+build/
+dist/
+pip-wheel-metadata/
+
+# -----------------------------
+# 🐳 DOCKER
+# -----------------------------
+# Ignore docker build artifacts
+*.pid
+*.seed
+*.bak
+*.tmp
+*.swp
+Dockerfile.dev
+docker-compose.override.yml
+
+# -----------------------------
+# 🪣 DATABASE / CACHE FILES
+# -----------------------------
+*.db
+*.sql
+*.dump
+*.bak
+*.tar.gz
+*.zip
+
+# -----------------------------
+# 🪞 SYSTEM FILES
+# -----------------------------
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# -----------------------------
+# 🧾 PYCHARM / JETBRAINS
+# -----------------------------
+.idea/
+*.iml
+
+# -----------------------------
+# ✅ GIT CLEANUP
+# -----------------------------
+# Don’t track generated files
+.mypy_cache/
+__pypackages__/
+.pytest_cache/
+.coverage
+htmlcov/

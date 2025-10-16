@@ -15,6 +15,13 @@ class Trade(models.Model):
         ('LONDON', 'London'),
         ('NEW YORK', 'New York'),
     ]
+
+    # Outcome choices
+    OUTCOME_CHOICES = [
+        ('WIN', 'Win'),
+        ('LOSS', 'Loss'),
+        ('BREAKEVEN', 'Breakeven'),
+    ]
     
     Session = models.CharField(max_length=10, choices=SESSION_CHOICES, null=True, blank=True) # e.g., 'ASIAN', 'LONDON', 'NEW YORK' 
     user = models.ForeignKey(User, on_delete=models.CASCADE) # Link to User model
@@ -26,6 +33,7 @@ class Trade(models.Model):
     stop_loss = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     take_profit = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     lot_size = models.DecimalField(max_digits=10, decimal_places=4, null=True, blank=True)
+    outcome = models.CharField(max_length=10, choices=OUTCOME_CHOICES, null=True, blank=True) # 'WIN', 'LOSS', or 'BREAKEVEN'
     profit_loss = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     rr_ratio = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     notes = models.TextField(null=True, blank=True) # Additional notes about the trade 

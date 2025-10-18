@@ -1,6 +1,6 @@
 <h1 align="center">📊 Trading Journal API</h1>
 <p align="center">
-  <strong>By BigB Capital</strong>  
+  <strong>By BigB Capital</strong> 
 </p>
 <p align="center">
   <em>A RESTful backend for recording, tracking, and analyzing trading performance.</em>
@@ -17,128 +17,140 @@
 
 ---
 
-## 🧭 Overview
+Trading Journal API - Documentation
 
-The **Trading Journal API** provides a structured and secure way for traders to log, review, and analyze their trades.  
-Built using **Django Rest Framework**, it offers authentication, data validation, and easy containerization via Docker.  
+# 🧾 Trading Journal API
 
-> _"Precision. Discipline. Execution."_ — **BigB Capital**
-
----
-
-## ⚙️ Tech Stack
-
-| Layer | Technology |
-|-------|-------------|
-| **Framework** | Django Rest Framework |
-| **Database** | MySQL |
-| **Containerization** | Docker & Docker Compose |
-| **API Docs** | Swagger UI / Redoc |
-| **Authentication** | JWT (JSON Web Token) |
-| **Language** | Python 3.11+ |
+A Django REST Framework–based backend for managing and tracking forex trades — allowing users to register, log trades, upload screenshots, and analyze performance metrics.
 
 ---
 
-## 🧩 Project Structure
-
-Trading_Journal_API/
-
-
-├── account/ # User registration, login, authentication logic
-
-├── trades/ # Core app handling trade data
-
-├── trading_journal_api/ # Root configuration & settings
-
- ├──├── settings.py # Configures environment variables from .env
-
-│
-
-├── Dockerfile
-
-├── docker-compose.yml
-
-├── .env.example
-
-├── requirements.txt
-
-└── README.md
+## 🚀 Features
+- User authentication (JWT-based)
+- Record trades (pair, session, direction, etc.)
+- Upload and view screenshots of trades
+- API documentation via Swagger and ReDoc
+- Dockerized environment for easy setup
 
 ---
 
-## 🐳 Docker Setup
+## 🧰 Installation
 
-Ensure **Docker Desktop** is running, then build and launch containers:
+### 1. Clone the Repository
+```
+git clone https://github.com/yourusername/Trading_Journal_API.git
+cd Trading_Journal_API
+```
 
-```bash
-docker compose up --build
-Services:
+### 2. Create and Activate Virtual Environment
+```
+python -m venv venv
+venv\Scripts\activate   # on Windows
+# OR
+source venv/bin/activate   # on Mac/Linux
+```
 
-Django API: http://localhost:8000
+### 3. Install Dependencies
+```
+pip install -r requirements.txt
+```
 
-Adminer (DB UI): http://localhost:8080
+### 4. Run Migrations
+```
+python manage.py makemigrations
+python manage.py migrate
+```
 
-Credentials (from .env):
+### 5. Create a Superuser (optional)
+```
+python manage.py createsuperuser
+```
 
-Host: db
+### 6. Run Server
+```
+python manage.py runserver
+```
 
-User: root
+---
 
-Password: yourpassword
+## 🐳 Using Docker
 
-🔐 Environment Variables
-Create a .env file at the project root:
+### Build and Run
+```
+docker-compose up --build
+```
+Your API will be available at:  
+👉 **http://localhost:8000**
 
-env
-Copy code
-SECRET_KEY=your-production-secret
-DEBUG=True
-ALLOWED_HOSTS=*
+---
 
-MYSQL_DATABASE=trading_journal
-MYSQL_USER=root
-MYSQL_PASSWORD=yourpassword
-MYSQL_ROOT_PASSWORD=yourpassword
-MYSQL_HOST=db
-MYSQL_PORT=3306
-✅ Always exclude .env from version control via .gitignore.
+## 📚 API Documentation
 
-📚 API Documentation
-Once running:
+- **Swagger UI:** [http://localhost:8000/swagger/](http://localhost:8000/swagger/)  
+- **ReDoc UI:** [http://localhost:8000/redoc/](http://localhost:8000/redoc/)
 
-Swagger UI: http://localhost:8000/swagger/
+---
 
-Redoc: http://localhost:8000/redoc/
+## 🧪 Testing with Postman
 
-🔑 Example Endpoints
-Endpoint	Method	Description
+You can test all API endpoints using **Postman**.
 
-/api/register/	POST	Register new user
+### 1. Register a User
+**POST** `http://localhost:8000/api/accounts/register/`
+```json
+{
+  "username": "trader1",
+  "email": "trader1@example.com",
+  "password": "strongpassword123"
+}
+```
 
-/api/login/	POST	Obtain JWT tokens
+### 2. Login
+**POST** `http://localhost:8000/api/accounts/login/`
+```json
+{
+  "username": "trader1",
+  "password": "strongpassword123"
+}
+```
+Copy the returned token and use it as a **Bearer Token** in all authorized requests.
 
-/api/trades/	GET/POST	Retrieve or create trade records
+### 3. Create a Trade
+**POST** `http://localhost:8000/api/trades/trades/`
+Use **form-data** body:
 
-/api/trades/{id}/	PUT/DELETE	Update or delete a trade
+| Key | Value | Type |
+|------|--------|------|
+| pair | EURUSD | Text |
+| direction | BUY | Text |
+| session | New York | Text |
+| entry_price | 1.0734 | Text |
+| exit_price | 1.0760 | Text |
+| profit_loss | 26 | Text |
+| screenshot | (select file) | File |
 
-🧠 Security & Best Practices
-Keep SECRET_KEY and DB credentials outside the repo.
+🖼 **Adding a Screenshot in Postman:**
+1. In request body, select **form-data**.  
+2. Add `screenshot` key.  
+3. Change type to **File**.  
+4. Click **Select Files** → choose your image.  
+5. Click **Send** → you’ll get a `201 Created` response.
 
-Use .env for sensitive info.
+### 4. List All Trades
+**GET** `http://localhost:8000/api/trades/trades/`
 
-Use HTTPS in production.
+### 5. Retrieve a Single Trade
+**GET** `http://localhost:8000/api/trades/trades/<trade_id>/`
 
-Regularly rotate credentials.
+### 6. Update or Delete a Trade
+**PATCH / DELETE** `http://localhost:8000/api/trades/trades/<trade_id>/`
 
-🚀 Future Enhancements
-Real-time trading analytics (PnL, Win Rate, RR)
+---
 
-Broker API integration (MT5, cTrader)
+## 💡 Lessons & Challenges
+- Structured Django REST APIs with JWT authentication.
+- Implemented Docker for easy deployment.
+- Integrated Swagger and ReDoc documentation.
+- Improved secret handling and Git best practices.
+- Learned media upload configuration and debugging.
 
-AI trade insight module
-
-Multi-user portfolio dashboards
-
-🧾 License
-This project is owned and maintained by BigB Capital.
-All rights reserved © 2025.

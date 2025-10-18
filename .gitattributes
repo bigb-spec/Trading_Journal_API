@@ -1,0 +1,6 @@
+# .gitattributes
+static/* linguist-vendored
+templates/* linguist-vendored
+frontend/* linguist-vendored
+*.js linguist-vendored
+*.css linguist-vendored

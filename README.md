@@ -32,7 +32,7 @@ It supports **JWT authentication**, **trade management**, and **analytics tracki
 ✅ RESTful JSON Endpoints for Frontend or Postman Testing  
 ✅ Swagger & Redoc API Docs  
 🐳 Dockerized Setup for Easy Deployment  
-📊 Analytics Module (Coming Soon)
+📊 Analytics Module
 
 ---
 
@@ -148,12 +148,12 @@ Authorization: Bearer <your-token>
 
 ### List Trades
 ```
-GET /api/trades/trades
+GET /api/trades/trades/
 ```
 
 ### Create Trade
 ```
-POST /api/trades/trades
+POST /api/trades/trades/
 ```
 **Body:**
 ```json
@@ -164,7 +164,7 @@ POST /api/trades/trades
   "entry_price": 1.27,
   "exit_price": 1.27,
   "result": "WIN",
-  "notes": "Short after liquidity grab"
+  "notes": "Short after liquidity grab",
   "date": "2025-10-18T14:30:00Z"
 }
 ```
@@ -195,9 +195,9 @@ Authorization: Bearer <your-token>
 |--------|-----------|-------------|
 | POST | `/api/accounts/register/` | Register new user |
 | POST | `/api/accounts/login/` | Login and get token |
-| GET | `/api/trades/trades` | List trades |
-| POST | `/api/trades/trades` | Create new trade |
-| GET | `/api/analytics/` | Analytics (Coming soon) |
+| GET | `/api/trades/trades/` | List trades |
+| POST | `/api/trades/trades/` | Create new trade |
+| GET | `/api/analytics/summary/` | Analytics |
 
 📸 **Adding Screenshots in Postman Tests:**
 - Run the request in Postman  
@@ -224,7 +224,7 @@ Authorization: Bearer <your-token>
 - Django 5.x
 - Django REST Framework
 - SimpleJWT
-- SQLite / PostgreSQL
+- MYSQL
 - Docker + Docker Compose
 
 ---

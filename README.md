@@ -17,140 +17,235 @@
 
 ---
 
-Trading Journal API - Documentation
-
 # 🧾 Trading Journal API
 
-A Django REST Framework–based backend for managing and tracking forex trades — allowing users to register, log trades, upload screenshots, and analyze performance metrics.
+A **Django REST Framework**–powered backend for logging, tracking, and analyzing forex trades.  
+It supports **JWT authentication**, **trade management**, and **analytics tracking** — all containerized with **Docker** for seamless deployment.
 
 ---
 
 ## 🚀 Features
-- User authentication (JWT-based)
-- Record trades (pair, session, direction, etc.)
-- Upload and view screenshots of trades
-- API documentation via Swagger and ReDoc
-- Dockerized environment for easy setup
+✅ JWT Authentication (Register, Login, Logout)  
+✅ CRUD Operations for Trades  
+✅ Auto-association of Trades with Logged-in Users  
+✅ Session Categorization (Asian, London, New York)  
+✅ RESTful JSON Endpoints for Frontend or Postman Testing  
+✅ Swagger & Redoc API Docs  
+🐳 Dockerized Setup for Easy Deployment  
+📊 Analytics Module (Coming Soon)
 
 ---
 
-## 🧰 Installation
+## ⚙️ Setup Instructions
 
-### 1. Clone the Repository
-```
-git clone https://github.com/yourusername/Trading_Journal_API.git
-cd Trading_Journal_API
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/<your-username>/trading-journal-api.git
+cd trading-journal-api
 ```
 
-### 2. Create and Activate Virtual Environment
+---
+
+## 🐳 Docker Setup
+
+### Option A — Run Entire App with Docker
+```bash
+docker-compose up --build
 ```
+This will:
+- Build your image  
+- Run database migrations automatically  
+- Expose the API on `http://localhost:8000`
+
+To stop:
+```bash
+docker-compose down
+```
+
+### Option B — Manual Container Commands
+```bash
+docker build -t trading_journal_api .
+docker run -p 8000:8000 trading_journal_api
+```
+
+---
+
+## 🧩 Environment Variables
+
+Create a `.env` file in the root directory:
+```bash
+SECRET_KEY=your-secret-key
+DEBUG=True
+ALLOWED_HOSTS=*
+DATABASE_URL=sqlite:///db.sqlite3
+```
+
+---
+
+## 🧠 Manual Setup (Without Docker)
+
+```bash
 python -m venv venv
-venv\Scripts\activate   # on Windows
-# OR
-source venv/bin/activate   # on Mac/Linux
-```
-
-### 3. Install Dependencies
-```
+source venv/bin/activate  # macOS/Linux
+venv\Scripts\activate   # Windows
 pip install -r requirements.txt
-```
-
-### 4. Run Migrations
-```
 python manage.py makemigrations
 python manage.py migrate
-```
-
-### 5. Create a Superuser (optional)
-```
-python manage.py createsuperuser
-```
-
-### 6. Run Server
-```
 python manage.py runserver
 ```
 
----
-
-## 🐳 Using Docker
-
-### Build and Run
+App runs at:
 ```
-docker-compose up --build
+http://127.0.0.1:8000/
 ```
-Your API will be available at:  
-👉 **http://localhost:8000**
 
 ---
 
-## 📚 API Documentation
+## 🔐 Authentication Endpoints
 
-- **Swagger UI:** [http://localhost:8000/swagger/](http://localhost:8000/swagger/)  
-- **ReDoc UI:** [http://localhost:8000/redoc/](http://localhost:8000/redoc/)
-
----
-
-## 🧪 Testing with Postman
-
-You can test all API endpoints using **Postman**.
-
-### 1. Register a User
-**POST** `http://localhost:8000/api/accounts/register/`
+### Register
+```
+POST /api/accounts/register/
+```
+**Body:**
 ```json
 {
-  "username": "trader1",
-  "email": "trader1@example.com",
-  "password": "strongpassword123"
+  "username": "brandon",
+  "email": "brandon@example.com",
+  "password": "StrongPass123",
+  "password2": "StrongPass123"
 }
 ```
 
-### 2. Login
-**POST** `http://localhost:8000/api/accounts/login/`
+### Login
+```
+POST /api/accounts/login/
+```
+**Body:**
 ```json
 {
-  "username": "trader1",
-  "password": "strongpassword123"
+  "username": "brandon",
+  "password": "StrongPass123"
+  "password2": "StrongPass123"
 }
 ```
-Copy the returned token and use it as a **Bearer Token** in all authorized requests.
 
-### 3. Create a Trade
-**POST** `http://localhost:8000/api/trades/trades/`
-Use **form-data** body:
+**Response:**
+```json
+{
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGci..."
+}
+```
 
-| Key | Value | Type |
-|------|--------|------|
-| pair | EURUSD | Text |
-| direction | BUY | Text |
-| session | New York | Text |
-| entry_price | 1.0734 | Text |
-| exit_price | 1.0760 | Text |
-| profit_loss | 26 | Text |
-| screenshot | (select file) | File |
-
-🖼 **Adding a Screenshot in Postman:**
-1. In request body, select **form-data**.  
-2. Add `screenshot` key.  
-3. Change type to **File**.  
-4. Click **Select Files** → choose your image.  
-5. Click **Send** → you’ll get a `201 Created` response.
-
-### 4. List All Trades
-**GET** `http://localhost:8000/api/trades/trades/`
-
-### 5. Retrieve a Single Trade
-**GET** `http://localhost:8000/api/trades/trades/<trade_id>/`
-
-### 6. Update or Delete a Trade
-**PATCH / DELETE** `http://localhost:8000/api/trades/trades/<trade_id>/`
+Use in headers:
+```
+Authorization: Bearer <your-token>
+```
 
 ---
 
-## 💡 Lessons & Challenges
-- Structured Django REST APIs with JWT authentication.
-- Implemented Docker for easy deployment.
-- Integrated Swagger and ReDoc documentation.
-- Improved secret handling and Git best practices.
-- Learned media upload configuration and debugging.
+## 💹 Trade Management Endpoints
 
+### List Trades
+```
+GET /api/trades/trades
+```
+
+### Create Trade
+```
+POST /api/trades/trades
+```
+**Body:**
+```json
+{
+  "symbol": "GBPUSD",
+  "direction": "SELL",
+  "session": "NEW YORK",
+  "entry_price": 1.27,
+  "exit_price": 1.27,
+  "result": "WIN",
+  "notes": "Short after liquidity grab"
+  "date": "2025-10-18T14:30:00Z"
+}
+```
+
+---
+
+## 📊 Analytics (Coming Soon)
+Endpoints will support:
+- Win rate tracking by session  
+- RR performance analysis  
+- Trade statistics aggregation
+
+---
+
+## 🔍 Testing with Postman
+
+### Step 1 — Login
+Retrieve your JWT token.
+
+### Step 2 — Add Header
+```
+Authorization: Bearer <your-token>
+```
+
+### Step 3 — Test Endpoints
+
+| Method | Endpoint | Description |
+|--------|-----------|-------------|
+| POST | `/api/accounts/register/` | Register new user |
+| POST | `/api/accounts/login/` | Login and get token |
+| GET | `/api/trades/trades` | List trades |
+| POST | `/api/trades/trades` | Create new trade |
+| GET | `/api/analytics/` | Analytics (Coming soon) |
+
+📸 **Adding Screenshots in Postman Tests:**
+- Run the request in Postman  
+- Click **“Save Response → Save to File”** or take a **screenshot**  
+- Save images in a `/screenshots` directory  
+- Link in README using markdown:
+```markdown
+![Postman Screenshot](screenshots/test_register.png)
+```
+
+---
+
+## 📘 API Documentation
+
+| Tool | URL |
+|------|-----|
+| Swagger | `http://127.0.0.1:8000/swagger/` |
+| Redoc | `http://127.0.0.1:8000/redoc/` |
+
+---
+
+## 🧰 Tech Stack
+- Python 3.12+
+- Django 5.x
+- Django REST Framework
+- SimpleJWT
+- SQLite / PostgreSQL
+- Docker + Docker Compose
+
+---
+
+## 🧱 Project Structure
+```
+Trading_Journal_API/
+│
+├── accounts/          # Authentication app
+├── trades/            # Trade logic
+├── analytics/         # Stats logic (coming soon)
+├── trading_journal/   # Settings
+├── Dockerfile
+├── docker-compose.yml
+├── requirements.txt
+└── README.md
+```
+
+
+## 👤 Author
+**Brandon Kiprotich**  
+Architect | Backend Developer | Forex Trader  
+🔗 [LinkedIn](https://www.linkedin.com/in/brandonkiprotich)  
+🌐 [Portfolio](https://sites.google.com/view/brandonkiprotich/home)

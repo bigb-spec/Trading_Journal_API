@@ -24,6 +24,12 @@ It supports **JWT authentication**, **trade management**, and **analytics tracki
 
 ---
 
+## 🌍 Live Demo
+
+👉 **[bigb.pythonanywhere.com](https://bigb.pythonanywhere.com)**
+
+---
+
 ## 🚀 Features
 ✅ JWT Authentication (Register, Login, Logout)  
 ✅ CRUD Operations for Trades  
@@ -56,6 +62,15 @@ This will:
 - Build your image  
 - Run database migrations automatically  
 - Expose the API on `http://localhost:8000`
+
+### 2️⃣ Run migrations and create superuser
+
+```bash
+docker exec -it trading_django python manage.py makemigrations
+docker exec -it trading_django python manage.py migrate
+docker exec -it trading_django python manage.py createsuperuser
+
+```
 
 To stop:
 ```bash

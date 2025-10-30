@@ -28,7 +28,7 @@ class Trade(models.Model):
     date = models.DateTimeField()  # Date and time of the trade 
     symbol = models.CharField(max_length=10) # e.g., 'EURUSD' 
     direction = models.CharField(max_length=4, choices=DIRECTION_CHOICES) # 'BUY' or 'SELL'
-    entry_price = models.DecimalField(max_digits=10, decimal_places=2) 
+    entry_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True) 
     exit_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     stop_loss = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     take_profit = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
